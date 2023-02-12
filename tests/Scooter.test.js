@@ -2,24 +2,30 @@ const Scooter = require('../src/Scooter')
 const User = require('../src/User')
 
 //typeof scooter === object
-describe('scooter object', () => {
-  test('does something', () => {
-    // edit this to be a real test!
-    expect(false).toEqual(true);
-  }
-)
-})
+describe('Scooter class', () => {
+  let scooter;
 
-//Method tests
-describe('scooter methods', () => {
-  // tests here!
+  beforeEach(() => {
+    scooter = new Scooter('Scooter Station');
+  });
 
-  //rent method
+  test('Scooter is created with correct station and serial number', () => {
+    expect(scooter.station).toBe('Scooter Station');
+    expect(scooter.serial).toBe(1);
+  });
 
-  //dock method
+  test('Scooter is rented successfully', () => {
+    scooter.rent();
+    expect(scooter.station).toBe(null);
+    expect(scooter.user).toBe('User');
+  });
 
-  //requestRepair method
+  test('Scooter cannot be rented if it needs to be charged', () => {
+    scooter.charge = 10;
+    expect(() => {
+      scooter.rent();
+    }).toThrow('Scooter needs to charge');
+  });
 
-  //charge method
 
-})
+});
