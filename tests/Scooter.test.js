@@ -27,5 +27,33 @@ describe('Scooter class', () => {
     }).toThrow('Scooter needs to charge');
   });
 
+  test('Scooter cannot be rented if it is broken', () => {
+    scooter.isBroken = true;
+    expect(() => {
+      scooter.rent();
+    }).toThrow('Scooter needs repair');
+  });
 
+  test('Scooter is docked successfully', () => {
+    scooter.rent();
+    scooter.dock('Another Scooter Station');
+    expect(scooter.station).toBe('Another Scooter Station');
+    expect(scooter.user).toBe(null);
+  });
+
+  test('Scooter charge increases until it reaches 100%', () => {
+    scooter.charge = 50;
+    scooter.recharge();
+    jest.advanceTimersByTime(1000);
+    expect(scooter.charge).toBe(51);
+    jest.advanceTimersByTime(4000);
+    expect(scooter.charge).toBe(100);
+  });
+
+  test('Scooter is repaired successfully', () => {
+    scooter.isBroken = true;
+    scooter.requestRepair();
+    jest.advanceTimersByTime(1000);
+    expect(scooter.isBroken).toBe(false);
+  });
 });
