@@ -1,13 +1,22 @@
-const User = require('../src/User')
+const User = require('./User');
 
-// User tests here
+describe('User class', () => {
+  let user;
 
-// test username
+  beforeEach(() => {
+    user = new User('John Doe', 'secret123', 30);
+  });
 
-// test password
+  it('should have a username property', () => {
+    expect(user.username).toBe('John Doe');
+  });
 
-// test age
+  it('should have a password property', () => {
+    expect(user.password).toBe('secret123');
+  });
 
-// test login
+  it('should have an age property', () => {
+    expect(user.age).toBe(30);
+  });
 
-// test logout
+});
