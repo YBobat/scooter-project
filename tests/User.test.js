@@ -19,4 +19,26 @@ describe('User class', () => {
     expect(user.age).toBe(30);
   });
 
+  it('should have a loggedIn property set to false by default', () => {
+    expect(user.loggedIn).toBe(false);
+  });
+
+  describe('login method', () => {
+    it('should log the user in if the password is correct', () => {
+      user.login('secret123');
+      expect(user.loggedIn).toBe(true);
+    });
+
+    it('should throw an error if the password is incorrect', () => {
+      expect(() => user.login('incorrect')).toThrow('Incorrect password');
+    });
+  });
+
+  describe('logout method', () => {
+    it('should log the user out', () => {
+      user.login('secret123');
+      user.logout();
+      expect(user.loggedIn).toBe(false);
+    });
+  });
 });
